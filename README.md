@@ -1,4 +1,7 @@
 # hackerRank
-hackerRank code challenges
 
-Javascript code challenges
+Javascript code challenges on hackerRank
+
+https://www.hackerrank.com/designwithbrown
+
+
