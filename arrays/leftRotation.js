@@ -8,6 +8,7 @@
 function rotLeft(a, d) {
     const arr = a.slice(0, d);
     a.splice(0, d);
+    // destructuring
     a = [...a, ...arr];
     return a
 }
