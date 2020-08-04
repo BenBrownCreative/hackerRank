@@ -1,7 +1,8 @@
 'use strict';
+// first attempt
 
 // Complete the formattedFriendListForBabyStep function below.
-function formattedFriendListForBabyStep(babyStep, friends) {
+function formattedFriendListForBabyStep2(babyStep, friends) {
     if (isNaN(babyStep)) {
         return 'Not a Number!';
       }
@@ -16,12 +17,8 @@ function formattedFriendListForBabyStep(babyStep, friends) {
     });
 
     // select friends on same step
-    const friendsOnMyStep = friendsList.filter(friend => friend.babyStep == babyStep);
-
-    // sort friends by last name
-    //friendsOnMyStep.sort((a, b) => (a.lastName > b.lastName) ? 1 : -1);
-
-    friendsOnMyStep.sort(( a, b ) => {
+    const friendsOnMyStep = friendsList.filter(friend => friend.babyStep == babyStep)
+    .sort(( a, b ) => {
 
         if ( a.lastName < b.lastName ){
           return -1;
@@ -64,7 +61,7 @@ function formattedFriendListForBabyStep(babyStep, friends) {
 
 }
 // baby step and array of friends
-console.log('formattedFriendListForBabyStep', formattedFriendListForBabyStep(6, [ [ 'Paul', 'Taylor', '2' ],
+console.log('formattedFriendListForBabyStep first attempt:', formattedFriendListForBabyStep2(6, [ [ 'Paul', 'Taylor', '2' ],
 [ 'Sharon', 'Thomas', '3' ],
 [ 'Thomas', 'Harris', '3' ],
 [ 'Deborah', 'Lee', '4' ],
@@ -85,3 +82,67 @@ console.log('formattedFriendListForBabyStep', formattedFriendListForBabyStep(6, 
 [ 'Paul', 'Taylor', '7' ],
 [ 'Amy', 'Gonzalez', '7' ],
 [ 'Richard', 'Martinez', '7' ] ]));
+
+
+
+
+// refactor
+
+// Complete the formattedFriendListForBabyStep function below.
+function formattedFriendListForBabyStep(babyStep, friends) {
+  // check for possible error
+  if (isNaN(babyStep)) {
+    return 'Not a Number!';
+  }
+
+  // select friends on same step and sort by name
+  const friendsOnMyStep = friends.filter(friend => friend[2] == babyStep)
+  .sort(( a, b ) => { // sort by name
+    let i = a[1] == b[1] ? 0 : 1; // check to see if last names are equal and change i to use first name to compare
+    return a[i] < b[i] ? -1 : 1; 
+  });
+
+  // create string to return
+  return (() => {
+    if (friendsOnMyStep.length == 0) {
+      return `None of your friends is in Baby Step ${babyStep}.`
+    } 
+    else if (friendsOnMyStep.length == 1) {
+      return `${friendsOnMyStep[0][0]} ${friendsOnMyStep[0][1]} is also in Baby Step ${babyStep}.`
+    } 
+    else if (friendsOnMyStep.length == 2) {
+      return `${friendsOnMyStep[0][0]} ${friendsOnMyStep[0][1]} and ${friendsOnMyStep[1][0]} ${friendsOnMyStep[1][1]} are also in Baby Step ${babyStep}.`
+    } 
+    else if (friendsOnMyStep.length == 3) {
+      return `${friendsOnMyStep[0][0]} ${friendsOnMyStep[0][1]} and ${friendsOnMyStep[1][0]} ${friendsOnMyStep[1][1]}, and 1 other friend are also in Baby Step ${babyStep}`
+    } 
+    else if (friendsOnMyStep.length > 3) {
+      return `${friendsOnMyStep[0][0]} ${friendsOnMyStep[0][1]} and ${friendsOnMyStep[1][0]} ${friendsOnMyStep[1][1]}, and ${friendsOnMyStep.length - 2} other friends are also in Baby Step ${babyStep}.`
+    } 
+  })();
+
+}
+// baby step and array of friends
+console.log('formattedFriendListForBabyStep refactor:', formattedFriendListForBabyStep(6, [ [ 'Paul', 'Taylor', '2' ],
+[ 'Sharon', 'Thomas', '3' ],
+[ 'Thomas', 'Harris', '3' ],
+[ 'Deborah', 'Lee', '4' ],
+[ 'Mark', 'Young', '4' ],
+[ 'Shirley', 'Perez', '4' ],
+[ 'Joseph', 'Lee', '5' ],
+[ 'Mary', 'White', '5' ],
+[ 'Matthew', 'Garcia', '5' ],
+[ 'Patricia', 'Allen', '5' ],
+[ 'Larry', 'Robinson', '6' ],
+[ 'Kimberly', 'Lopez', '6' ],
+[ 'Jose', 'Martinez', '6' ],
+[ 'Deborah', 'Walker', '6' ],
+[ 'Joseph', 'Lopez', '6' ],
+[ 'Dorothy', 'Moore', '7' ],
+[ 'Jose', 'Jackson', '7' ],
+[ 'Karen', 'Lee', '7' ],
+[ 'Paul', 'Taylor', '7' ],
+[ 'Amy', 'Gonzalez', '7' ],
+[ 'Richard', 'Martinez', '7' ] ]));
+
+
